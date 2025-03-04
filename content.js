@@ -8,7 +8,8 @@
     textColor: '#ffffff',
     bgColor: '#000000',
     opacity: 0.7,
-    timeout: 0
+    timeout: 1000,
+    alwaysShow: false
   };
 
   let hideTimeout = null;
@@ -23,7 +24,8 @@
       textColor: '#ffffff',
       bgColor: '#000000',
       opacity: 0.7,
-      timeout: 0
+      timeout: 1000,
+      alwaysShow: false
     }, (items) => {
       settings = items;
       if (settings.enabled) {
@@ -65,35 +67,27 @@
     dimensionsDisplay.style.borderRadius = '4px';
     dimensionsDisplay.style.fontFamily = 'monospace';
     dimensionsDisplay.style.pointerEvents = 'none';
-    
+
     // Position
     switch (settings.position) {
       case 'top-right':
         dimensionsDisplay.style.top = '10px';
         dimensionsDisplay.style.right = '10px';
-        dimensionsDisplay.style.bottom = 'auto';
-        dimensionsDisplay.style.left = 'auto';
         break;
       case 'top-left':
         dimensionsDisplay.style.top = '10px';
         dimensionsDisplay.style.left = '10px';
-        dimensionsDisplay.style.bottom = 'auto';
-        dimensionsDisplay.style.right = 'auto';
         break;
       case 'bottom-right':
         dimensionsDisplay.style.bottom = '10px';
         dimensionsDisplay.style.right = '10px';
-        dimensionsDisplay.style.top = 'auto';
-        dimensionsDisplay.style.left = 'auto';
         break;
       case 'bottom-left':
         dimensionsDisplay.style.bottom = '10px';
         dimensionsDisplay.style.left = '10px';
-        dimensionsDisplay.style.top = 'auto';
-        dimensionsDisplay.style.right = 'auto';
         break;
     }
-    
+
     // Font size
     switch (settings.fontSize) {
       case 'small':
@@ -106,7 +100,7 @@
         dimensionsDisplay.style.fontSize = '16px';
         break;
     }
-    
+
     // Colors
     dimensionsDisplay.style.color = settings.textColor;
     dimensionsDisplay.style.backgroundColor = hexToRgba(settings.bgColor, settings.opacity);
@@ -123,7 +117,7 @@
   // Update the dimensions display
   function updateDimensions() {
     if (!dimensionsDisplay || !settings.enabled) return;
-    
+
     const width = window.innerWidth;
     const height = window.innerHeight;
     dimensionsDisplay.textContent = `${width}px × ${height}px`;
@@ -132,15 +126,15 @@
 
   function showDimensions() {
     if (!dimensionsDisplay || !settings.enabled) return;
-    
+
     // Clear any existing timeout
     if (hideTimeout) {
       clearTimeout(hideTimeout);
     }
-    
+
     // Show the display
     dimensionsDisplay.style.opacity = '1';
-    
+
     // Set timeout to hide if needed
     if (settings.timeout > 0) {
       hideTimeout = setTimeout(() => {
@@ -154,7 +148,7 @@
     if (message.action === 'updateSettings') {
       const oldTimeout = settings.timeout;
       settings = message.settings;
-      
+
       if (settings.enabled) {
         if (!dimensionsDisplay) {
           createDimensionsDisplay();
@@ -162,7 +156,7 @@
           applyStyles();
         }
         updateDimensions();
-        
+
         // If timeout setting changed, update visibility
         if (oldTimeout !== settings.timeout) {
           showDimensions();
@@ -171,11 +165,11 @@
         document.body.removeChild(dimensionsDisplay);
         dimensionsDisplay = null;
       }
-      
+
       sendResponse({ success: true });
     } else if (message.action === 'toggleDisplay') {
       settings.enabled = message.enabled;
-      
+
       if (settings.enabled) {
         if (!dimensionsDisplay) {
           createDimensionsDisplay();
@@ -185,7 +179,7 @@
         document.body.removeChild(dimensionsDisplay);
         dimensionsDisplay = null;
       }
-      
+
       sendResponse({ success: true });
     }
   });

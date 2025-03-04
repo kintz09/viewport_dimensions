@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const timeoutInput = document.getElementById('timeout');
   const alwaysShowCheckbox = document.getElementById('alwaysShow');
 
-  // Load saved settings
+  // Load saved settings or use default values
   chrome.storage.sync.get({
     enabled: true,
     position: 'top-right',

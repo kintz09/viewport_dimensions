@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Viewport Dimensions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "jordankintzle@gmail.com",
   "description": "Displays the current viewport dimensions in real-time as you resize the browser window.",
   "icons": {
