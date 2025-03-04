@@ -1,0 +1,8 @@
+#viewport-dimensions-display {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  user-select: none;
+  font-weight: bold;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+}

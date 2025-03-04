@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viewport Dimensions</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Viewport Dimensions</h1>
+    
+    <div class="toggle-container">
+      <label class="switch">
+        <input type="checkbox" id="enableToggle" checked>
+        <span class="slider round"></span>
+      </label>
+      <span>Enable Viewport Display</span>
+    </div>
+    
+    <div class="settings-section">
+      <h2>Display Settings</h2>
+      
+      <div class="setting">
+        <label for="position">Position:</label>
+        <select id="position">
+          <option value="top-right">Top Right</option>
+          <option value="top-left">Top Left</option>
+          <option value="bottom-right">Bottom Right</option>
+          <option value="bottom-left">Bottom Left</option>
+        </select>
+      </div>
+      
+      <div class="setting">
+        <label for="fontSize">Font Size:</label>
+        <select id="fontSize">
+          <option value="small">Small</option>
+          <option value="medium" selected>Medium</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
+      
+      <div class="setting">
+        <label for="textColor">Text Color:</label>
+        <input type="color" id="textColor" value="#ffffff">
+      </div>
+      
+      <div class="setting">
+        <label for="bgColor">Background Color:</label>
+        <input type="color" id="bgColor" value="#000000">
+      </div>
+      
+      <div class="setting">
+        <label for="opacity">Background Opacity:</label>
+        <input type="range" id="opacity" min="0" max="1" step="0.1" value="0.7">
+        <span id="opacityValue">0.7</span>
+      </div>
+    </div>
+    
+    <button id="saveSettings" class="save-button">Save Settings</button>
+  </div>
+  <script type="module" src="./popup.ts"></script>
+</body>
+</html>
