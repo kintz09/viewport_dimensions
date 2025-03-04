@@ -144,3 +144,23 @@ input[type="range"] {
 .save-button:hover {
   background-color: #0d8bf0;
 }
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+#timeout {
+  width: 80px;
+}
+
+#timeout:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.setting input[type="checkbox"] {
+  margin: 0;
+}

@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const opacityInput = document.getElementById('opacity');
   const opacityValue = document.getElementById('opacityValue');
   const saveButton = document.getElementById('saveSettings');
+  const timeoutInput = document.getElementById('timeout');
+  const alwaysShowCheckbox = document.getElementById('alwaysShow');
 
   // Load saved settings
   chrome.storage.sync.get({
@@ -15,7 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
     fontSize: 'medium',
     textColor: '#ffffff',
     bgColor: '#000000',
-    opacity: 0.7
+    opacity: 0.7,
+    timeout: 1000,
+    alwaysShow: false
   }, (items) => {
     enableToggle.checked = items.enabled;
     positionSelect.value = items.position;
@@ -24,11 +28,19 @@ document.addEventListener('DOMContentLoaded', () => {
     bgColorInput.value = items.bgColor;
     opacityInput.value = items.opacity;
     opacityValue.textContent = items.opacity;
+    timeoutInput.value = items.timeout;
+    alwaysShowCheckbox.checked = items.alwaysShow;
+    timeoutInput.disabled = items.alwaysShow;
   });
 
   // Update opacity value display
   opacityInput.addEventListener('input', () => {
     opacityValue.textContent = opacityInput.value;
+  });
+
+  // Handle "Always Show" toggle
+  alwaysShowCheckbox.addEventListener('change', () => {
+    timeoutInput.disabled = alwaysShowCheckbox.checked;
   });
 
   // Save settings
@@ -39,7 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
       fontSize: fontSizeSelect.value,
       textColor: textColorInput.value,
       bgColor: bgColorInput.value,
-      opacity: parseFloat(opacityInput.value)
+      opacity: parseFloat(opacityInput.value),
+      timeout: alwaysShowCheckbox.checked ? 0 : parseInt(timeoutInput.value),
+      alwaysShow: alwaysShowCheckbox.checked
     };
 
     chrome.storage.sync.set(settings, () => {
@@ -49,6 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
           chrome.tabs.sendMessage(tabs[0].id, { 
             action: 'updateSettings', 
             settings: settings 
+          }, (response) => {
+            if (response && response.success) {
+              console.log('Settings updated successfully');
+            } else {
+              console.error('Failed to update settings');
+            }
           });
         }
       });

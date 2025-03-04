@@ -12,7 +12,7 @@
     
     <div class="toggle-container">
       <label class="switch">
-        <input type="checkbox" id="enableToggle" checked>
+        <input type="checkbox" id="enableToggle" checked title="Enable Viewport Display">
         <span class="slider round"></span>
       </label>
       <span>Enable Viewport Display</span>
@@ -48,6 +48,17 @@
       <div class="setting">
         <label for="bgColor">Background Color:</label>
         <input type="color" id="bgColor" value="#000000">
+      </div>
+      
+      <div class="setting">
+        <div class="setting-row">
+          <input type="checkbox" id="alwaysShow" title="Keep dimensions visible">
+          <label for="alwaysShow">Always Show</label>
+        </div>
+        <div class="setting-row">
+          <label for="timeout">Hide After (ms):</label>
+          <input type="number" id="timeout" value="1000" min="100" step="100">
+        </div>
       </div>
       
       <div class="setting">
